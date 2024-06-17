@@ -1,0 +1,1 @@
+JSON_RULES_PATH = 'D:\python_projects\converter_2\l.json'

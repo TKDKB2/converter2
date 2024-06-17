@@ -1,0 +1,10 @@
+{
+    "input": {
+        "output": "output3",
+        "flags": [
+            "flag1",
+            "flag2",
+            "flag3"
+        ]
+    }
+}
