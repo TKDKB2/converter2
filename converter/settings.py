@@ -1,0 +1,6 @@
+ROOT_BUFFER_DIR = "../buffer"
+BUCKET_NAME = "test"
+MINIO_ENDPOINT = 'localhost:9000'
+MINIO_ACCESS_KEY = 'gw6djyyVcBgEdNaNCAn6'
+MINIO_SECRET_KEY = 'SUp5W8SkHgCdniNGYXe4pvBKjbnQ6iv8sRyhkYna'
+SSL_FLAG = False
