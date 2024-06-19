@@ -21,6 +21,7 @@ def convert_video(video_file_local_path, rule):
     command = f"ffmpeg -i {video_file_local_path} {flags} {new_local_file_path}"
     print(command)
     subprocess.run(command, shell=True)
+    return new_local_file_path
 
 
 """ Getting a rule depending on a format """
@@ -33,5 +34,5 @@ def get_needed_rule(video_file_local_path):
         return {"message: no rule found for this video format"}
 
 
-rule = get_needed_rule(f"{ROOT_BUFFER_DIR}/sample-5s.mp4")
-convert_video(f"{ROOT_BUFFER_DIR}/sample-5s.mp4", rule)
+# rule = get_needed_rule(f"{ROOT_BUFFER_DIR}/sample-5s.mp4")
+# convert_video(f"{ROOT_BUFFER_DIR}/sample-5s.mp4", rule)

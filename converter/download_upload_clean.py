@@ -1,7 +1,7 @@
 import minio
 import os
-from .service import get_filename
-from .settings import ROOT_BUFFER_DIR, BUCKET_NAME, MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY, SSL_FLAG
+from service import get_filename, new_file_local_path
+from settings import ROOT_BUFFER_DIR, BUCKET_NAME, MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY, SSL_FLAG
 import uuid
 
 
@@ -35,12 +35,14 @@ def download_video_from_minio(video_path: str):
 def upload_video_to_minio(video_path: str):
     try:
         filename = get_filename(video_path)
-        minio_client.fput_object(f'{BUCKET_NAME}', os.path.basename(f'{video_path}'), f'{ROOT_BUFFER_DIR}/{filename}')
+        # new_minio_path = new_file_local_path(video_path_minio)
+        minio_client.fput_object(f'{BUCKET_NAME}', f'{video_path}', f'{ROOT_BUFFER_DIR}/{filename}')
         print(f"Видео {filename} загружено обратно в Minio")
     except:
         print('error')
 
 # TODO написать функцию, которая будет чистить локальный буффер
+
 
 
 

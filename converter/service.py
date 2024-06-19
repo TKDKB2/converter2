@@ -33,3 +33,22 @@ def parse_flags_for_list(rule: dict):
     return result_flags
 
 
+""" function getting new minio file path """
+def new_file_minio_path(path: str, filename:str, rule) -> str:
+    input = next(iter(rule.keys()))
+    output_format = rule[input]["output"]
+    # filename = get_filename(path)
+    # filename_list = filename.split('.')
+    # new_filename = f"{filename_list[0]}.{output_format}"
+    new_file_path = f"{os.path.dirname(path)}/{filename}"
+    return new_file_path
+
+
+""" buffer cleaner """
+def delete_files_with_same_name_but_different_extension(file_path):
+    directory = os.path.dirname(file_path)
+    file_name = os.path.splitext(os.path.basename(file_path))[0]
+    files_to_delete = [file for file in os.listdir(directory) if file.startswith(file_name) and os.path.isfile(os.path.join(directory, file))]
+    for file in files_to_delete:
+        os.remove(os.path.join(directory, file))
+        print(f"Файл {file} удален")
