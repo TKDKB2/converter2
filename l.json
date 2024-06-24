@@ -1,17 +1,16 @@
 {
-    "input": {
-        "output": "output3",
-        "flags": [
-            "flag1",
-            "flag2",
-            "flag3"
-        ]
-    },
+
     "mp4": {
         "output": "avi",
         "flags" : [
             "-s 1280x720",
             "-r 30"
+        ]
+    },
+    "jpg": {
+        "output": "jpg",
+        "flags": [
+            "-q:v 2"
         ]
     }
 }
