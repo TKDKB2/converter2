@@ -3,6 +3,7 @@ from convert import get_needed_rule, convert_video, convert, command_from_rule, 
 from service import new_file_minio_path, get_filename, delete_files_with_same_name_but_different_extension
 from datetime import datetime
 from incoming_message_handler import handle_incoming_message
+from rabbitmq_message_sender import send_conversion_success_message
 
 
 # test_minio_path = "/test_folder/sample-jpg-file-for-testing.jpg"
@@ -29,6 +30,8 @@ def main_worker(message: str):
     new_minio_path = new_file_minio_path(minio_path, new_minio_filename)
     # print(new_minio_path)
     upload_video_to_minio(new_minio_path)
+    # send_message_to_rabbit(new_minio_path)
+    send_conversion_success_message(new_minio_path)
     delete_files_with_same_name_but_different_extension(local_video_path)
     end_time = datetime.now()
     print("end", end_time)
