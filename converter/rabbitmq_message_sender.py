@@ -14,6 +14,6 @@ def send_conversion_success_message(message):
         body=message
     )
 
-    print("Сообщение об успешной конвертации отправлено в отдельную очередь")
+    # print("Сообщение об успешной конвертации отправлено в отдельную очередь")
 
     connection.close()

@@ -53,3 +53,9 @@ def delete_files_with_same_name_but_different_extension(file_path):
     for file in files_to_delete:
         os.remove(os.path.join(directory, file))
         # print(f"Файл {file} удален")
+
+
+def get_new_minio_filename(local_path: str) -> str:
+    name, format = os.path.splitext(os.path.basename(local_path))
+    final_minio_name = name.split('_')[0] + "_converted" + format
+    return final_minio_name

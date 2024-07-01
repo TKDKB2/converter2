@@ -25,7 +25,14 @@ try:
 except Exception as e:
     print("Failed to bind queue 'test' to exchange 'test':", e)
 
-messages = ['{"path": "/test_folder/sample-5s.mp4", "flags": [], "output": ""}', '{"path": "/test_folder/sample-10s.mp4", "flags": [], "output": ""}', '{"path": "/test_folder/sample-15s.mp4", "flags": [], "output": ""}', '{"path": "/test_folder/sample-20s.mp4", "flags": [], "output": ""}', '{"path": "/test_folder/sample-30s.mp4", "flags": [], "output": ""}']
+messages = [
+            '{"path": "/test_folder/sample-5s.mp4", "flags": [], "output": ""}',
+            '{"path": "/test_folder/sample-10s.mp4", "flags": [], "output": ""}',
+            '{"path": "/test_folder/sample-15s.mp4", "flags": [], "output": ""}',
+            '{"path": "/test_folder/sample-20s.mp4", "flags": [], "output": ""}',
+            '{"path": "/test_folder/sample-30s.mp4", "flags": [], "output": ""}'
+]
+
 
 for message in messages:
     channel.basic_publish(exchange=RABBITMQ_EXCHANGE, routing_key=ROUTING_KEY, body=message)

@@ -23,23 +23,30 @@ def download_video_from_minio(video_path: str):
         unique_id = str(uuid.uuid4())
         filename_list = filename.split('.')
         local_filename = f'{filename_list[0]}_{unique_id}.{filename_list[-1]}'
+        # result_minio_filename = f'{filename_list[0]}_converted'
+        # print("новое имя", result_minio_filename)
         minio_client.fget_object(f'{BUCKET_NAME}', f'{video_path}', f'{ROOT_BUFFER_DIR}/{local_filename}')
+        # print(f'{ROOT_BUFFER_DIR}/{local_filename}', result_minio_filename)
         return f'{ROOT_BUFFER_DIR}/{local_filename}'
-    except:
-        print("error")
+    except Exception as e:
+        print("An exception occurred:", e)
         return None
 
 
 """ Upload the video (beta)"""
-def upload_video_to_minio(video_path: str):
+def upload_video_to_minio(video_path: str, local_filepath: str):
     try:
-        filename = get_filename(video_path)
+        filename = get_filename(local_filepath)
         # new_minio_path = new_file_local_path(video_path_minio)
         minio_client.fput_object(f'{BUCKET_NAME}', f'{video_path}', f'{ROOT_BUFFER_DIR}/{filename}')
-    except:
-        print('error')
+    except Exception as e:
+        print("An exception occurred:", e)
+        return None
 
 # TODO написать функцию, которая будет чистить локальный буффер
+
+
+
 
 
 
