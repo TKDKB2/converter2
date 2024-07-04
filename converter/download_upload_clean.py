@@ -13,37 +13,22 @@ minio_client = minio.Minio(
                            secure=SSL_FLAG
                            )
 
-video_path_minio = '/test_folder/sample-15s.mp4'
+
+def download_video_from_minio(video_path: str) -> str:
+    """ Download the video"""
+    filename = get_filename(video_path)
+    unique_id = str(uuid.uuid4())
+    filename_list = filename.split('.')
+    local_filename = f'{filename_list[0]}_{unique_id}.{filename_list[-1]}'
+    minio_client.fget_object(f'{BUCKET_NAME}', f'{video_path}', f'{ROOT_BUFFER_DIR}/{local_filename}')
+    return f'{ROOT_BUFFER_DIR}/{local_filename}'
 
 
-""" Download the video (beta)"""
-def download_video_from_minio(video_path: str):
-    try:
-        filename = get_filename(video_path)
-        unique_id = str(uuid.uuid4())
-        filename_list = filename.split('.')
-        local_filename = f'{filename_list[0]}_{unique_id}.{filename_list[-1]}'
-        # result_minio_filename = f'{filename_list[0]}_converted'
-        # print("новое имя", result_minio_filename)
-        minio_client.fget_object(f'{BUCKET_NAME}', f'{video_path}', f'{ROOT_BUFFER_DIR}/{local_filename}')
-        # print(f'{ROOT_BUFFER_DIR}/{local_filename}', result_minio_filename)
-        return f'{ROOT_BUFFER_DIR}/{local_filename}'
-    except Exception as e:
-        print("An exception occurred:", e)
-        return None
+def upload_video_to_minio(video_path: str, local_filepath: str) -> None:
+    """ Upload the video"""
+    filename = get_filename(local_filepath)
+    minio_client.fput_object(f'{BUCKET_NAME}', f'{video_path}', f'{ROOT_BUFFER_DIR}/{filename}')
 
-
-""" Upload the video (beta)"""
-def upload_video_to_minio(video_path: str, local_filepath: str):
-    try:
-        filename = get_filename(local_filepath)
-        # new_minio_path = new_file_local_path(video_path_minio)
-        minio_client.fput_object(f'{BUCKET_NAME}', f'{video_path}', f'{ROOT_BUFFER_DIR}/{filename}')
-    except Exception as e:
-        print("An exception occurred:", e)
-        return None
-
-# TODO написать функцию, которая будет чистить локальный буффер
 
 
 

@@ -17,9 +17,9 @@ def singleton(cls):
 @singleton
 class Rules:
 
-    # reading rules from json
     @staticmethod
     def read_json_file(file_path: str) -> dict:
+        """ reading rules from json """
         try:
             with open(file_path, "r") as file:
                 json_data = json.load(file)
@@ -32,9 +32,9 @@ class Rules:
 
         return json_data
 
-    # writing rules to json
     @staticmethod
     def write_json_file(file_path: str, data: dict):
+        """ writing rules to json """
         try:
             with open(file_path, "w") as file:
                 json.dump(data, file, indent=4)
@@ -45,13 +45,13 @@ class Rules:
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
 
-    # initialization of singletone by reading all rules from json
     def __init__(self):
+        """ initialization of singletone by reading all rules from json """
         self._rules: dict = self.read_json_file(settings.JSON_RULES_PATH)
         print("INIT", self._rules)
 
-    # creating the rule and updating json
     def create_rule(self, input_format, details):
+        """ creating the rule and updating json """
         if input_format in self._rules:
             print("hello")
             print(self._rules)
@@ -61,27 +61,27 @@ class Rules:
         print("aaaa", self._rules)
         return f"{self._rules}"
 
-    # reading the rule
     def read_rule(self, input_format):
+        """ reading the rule """
         if not self._rules.get(input_format):
             return "Rule not found"
         else:
             return {input_format: self._rules[input_format]}
 
-    # reading all the rules
     def read_all_rules(self):
+        """ reading all the rules """
         return self._rules
 
-    # updating the rule and updating json
     def update_rule(self, input_format, new_details):
+        """ updating the rule and updating json """
         if input_format not in self._rules:
             return f"Rule with input format '{input_format}' does not exist"
         self._rules[input_format] = new_details
         self.write_json_file(settings.JSON_RULES_PATH, self._rules)
         return f"Rule with input format '{input_format}' updated successfully"
 
-    # deleting the rule and updating json
     def delete_rule(self, input_format):
+        """ deleting the rule and updating json"""
         if input_format not in self._rules:
             return f"Rule with input format '{input_format}' does not exist"
         del self._rules[input_format]

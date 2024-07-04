@@ -10,3 +10,4 @@ executor = ThreadPoolExecutor(max_workers=THREADS_NUMBER)
 for _ in range(num_threads):
     executor.submit(consume_messages)
 
+
