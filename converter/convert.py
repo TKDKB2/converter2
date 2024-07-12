@@ -1,7 +1,10 @@
+import json
+
 from rules_model import Rules
 import subprocess
 from service import get_filename, new_file_local_path, parse_flags, parse_flags_for_list
 from settings import ROOT_BUFFER_DIR
+from api.settings import JSON_RULES_PATH
 
 rules = Rules()
 
@@ -51,7 +54,19 @@ def get_needed_rule(video_file_local_path: str) -> dict | set[str]:
         return {"message: no path"}
     video_format = video_file_local_path.split('.')[-1]
     try:
-        rule = {video_format: rules._rules[video_format]}
+        with open(JSON_RULES_PATH, "r") as file:
+            rules = json.load(file)
+    except json.JSONDecodeError as e:
+        print(f"Error reading JSON file: {e}")
+        rules = {}
+    except FileNotFoundError as e:
+        print(f"Error opening file: {e}")
+        rules = {}
+
+    try:
+        meta = rules[video_format]
+        print(meta)
+        rule = {video_format: meta}
         return rule
     except KeyError:
         return {"message: no rule found for this video format"}

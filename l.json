@@ -1,11 +1,4 @@
 {
-    "mp4": {
-        "output": "avi",
-        "flags": [
-            "-s 1280x720",
-            "-r 30"
-        ]
-    },
     "jpg": {
         "output": "jpg",
         "flags": [
@@ -14,6 +7,10 @@
     },
     "avi": {
         "output": "mp4",
+        "flags": []
+    },
+    "mp4": {
+        "output": "avi",
         "flags": []
     }
 }

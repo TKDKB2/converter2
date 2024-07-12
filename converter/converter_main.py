@@ -4,10 +4,13 @@ from service import new_file_minio_path, get_filename, delete_files_with_same_na
 from datetime import datetime
 from incoming_message_handler import handle_incoming_message
 from rabbitmq_message_sender import send_message
+from rules_model import Rules
 
 
 
 def main_worker(message: str):
+    rules = Rules()
+    print(rules)
     """ main function """
     start_time = datetime.now()
     print("start", start_time)
@@ -17,8 +20,10 @@ def main_worker(message: str):
     local_video_path: str = download_video_from_minio(minio_path)
     # print(local_video_path)
     if dict_message["flags"] or dict_message["output"]:
+        print("M")
         command, new_local_file_path = command_from_message(dict_message, local_video_path)
     else:
+        print("R")
         rule = get_needed_rule(local_video_path)
         command, new_local_file_path = command_from_rule(rule, local_video_path)
     convert(command)

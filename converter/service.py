@@ -18,6 +18,8 @@ def new_file_local_path(path: str, output_format: str) -> str:
 
 def parse_flags(rule):
     """ function getting rule flags properly"""
+    print(rule)
+    print(type(rule))
     input = next(iter(rule.keys()))
     result_flags = ' '.join(rule[input]["flags"])
     return result_flags
